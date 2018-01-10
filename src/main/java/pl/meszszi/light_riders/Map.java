@@ -10,11 +10,15 @@ public class Map {
     private final int width;
     private final int height;
     private MapField[][] fields;
+    private Player[] players;
 
 
     public Map(int width, int height) {
         this.width = width;
         this.height = height;
+
+        this.players = new Player[2];
+
         this.fields = new MapField[width][height];
 
         for(int xCoord = 0; xCoord < width; xCoord++)
@@ -40,5 +44,8 @@ public class Map {
         // that could change their state since the previous round.
         this.fields[player0pos % this.width][player0pos / this.height].setToOccupied();
         this.fields[player1pos % this.width][player1pos / this.height].setToOccupied();
+
+        this.players[0].updatePosition(new Position(player0pos % this.width, player0pos / this.height));
+        this.players[1].updatePosition(new Position(player1pos % this.width, player1pos / this.height));
     }
 }
